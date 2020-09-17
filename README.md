@@ -1,4 +1,4 @@
-# Leet Code Notes 
+# Code Learning Notes 
 
 This file contains notes on the python language for common problems.
 

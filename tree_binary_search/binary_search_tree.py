@@ -35,14 +35,16 @@ class BinarySearchTree(object):
 
         return new_node
 
-    def minimum(self):
-        node = self.root
+    def minimum(self, node = None):
+        if not node:
+            node = self.root
         while node.left:
             node = node.left
         return node
 
-    def maximum(self):
-        node = self.root
+    def maximum(self, node = None):
+        if not node:
+            node = self.root
         while node.right:
             node = node.right
         return node
@@ -78,3 +80,36 @@ class BinarySearchTree(object):
                 node = node.right
 
         return node
+
+    def in_order_tree_walk(self, node):
+
+        if node:
+            self.in_order_tree_walk(node.left)
+            print(node.key)
+            self.in_order_tree_walk(node.right)
+
+    # note: successor node is node with smallest key that is greater than node.key
+    def successor_node(self, node):
+        if node.right:
+            return self.minimum(node.right)
+        y = node.parent
+        while y and node == y.right:
+            node = y
+            y = y.parent
+        return y
+
+    # note: predecessor node is node with larges key that is smaller than node.key
+    def predecessor_node(self, node):
+        if node.left:
+            return self.maximum(node.left)
+        y = node.parent
+        while y and node == y.left:
+            node = y
+            y = y.parent
+        return y
+
+
+
+
+
+
