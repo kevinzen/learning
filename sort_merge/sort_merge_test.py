@@ -1,6 +1,7 @@
 import unittest
 
 from sort_merge.solution import Solution
+from contains_nearby_almost_duplicate.solution import Solution as Sol1
 
 
 class SortMergeTest(unittest.TestCase):
@@ -19,6 +20,23 @@ class SortMergeTest(unittest.TestCase):
 
             print(nums)
             output = s.merge_sort(nums)
+            self.assertEqual(result, output)
+
+
+    def test_sort_merge1(self):
+        s = Sol1()
+
+        tests = [
+            ([2, 3, 9, 1, 4, 5, 7, 6, 8], [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+            # ([-1, 2, 0, -2, 1, 4, -3, 3], [-3, -2, -1, 0, 1, 2, 3, 4])
+        ]
+
+        for test in tests:
+            nums   = test[0]
+            result = test[1]
+
+            print(nums)
+            output = s.sort(nums)
             self.assertEqual(result, output)
 
     def test_left_right(self):

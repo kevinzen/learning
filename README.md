@@ -91,6 +91,7 @@ extract a string from a larger strgin given indexes into the string
 ```python
 s = 'hello'
 s[0:4]  # 'hell'
+#  s[i:j] -> i = beginning/inclusive, j = end/exclusive
 ```
 
 To reverse a list or a string
