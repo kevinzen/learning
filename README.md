@@ -246,38 +246,103 @@ for i in range(1, len(nums)): # 1, 2, 3
 
 ```
 
-Merge Sort (first recursion)
+Merge Sort
 
 ```python
 
-def merge_sort(self, list):
-    pass
+def sort(self, list):
+    # 1. return if at the bottom
+    # 2. Divide
+    # 3. Conquer
 
-    # 1. return if at the bottom    
-
+    # a list of zero or one is already sorted
     if len(list) <= 1:
         return list
 
-    # 2. Break it down and save the one piece we want here
-    #    -- determine if len is even or odd, set 'extra' to 0 (even) or 1 (odd)
-    #    -- break at len(list)//2 (which returns an integer at the floor) 
+    # if len = 11, then extra = 1, half = 5, left = list[:5], right = [6:]
     extra = len(list) % 2
-    
+    half_size = len(list) // 2
+    mid_index = half_size + extra
 
-    #    -- note: len(list) == len(list)//2 + len(list)//2 + extra (where extra is 1 if odd and 0 id even)
-    #    --       for example:  5 = 5//2 + 5//2 + 1 , or 4 == 4//2 + 4//2 + 0
-    #    --       so left_size = len(list)//2, right_size = len(list)//2 + extra
-    #    --       and left = list[:left_size], right = list[right_size:]  # colon's go on left for left and right for right
-    #    --       then recurse: left = merge_sort(left), and right=merge_sort(right)
+    left = list[:mid_index]
+    right = list[mid_index:]
 
-    # 3. Finally, call merge
-    #   -- result = merge(left, right)
-    #   -- return result
+    left = self.sort(left)
+    right = self.sort(right)
 
-    # To merge, combine the sorted left and right arrays to larger ones
-    
+    return self.merge(left, right)
 
 
+def merge(self, left, right):
+    result = []
+    while len(left) > 0 and len(right) > 0:
+        if left[0] <= right[0]:
+            result.append(left.pop(0))
+        else:
+            result.append(right.pop(0))
 
+    result = result + left + right
+    return result
+
+```
+
+sorted containers
+
+```python
+from sortedcontainers.sortedlist import SortedList
+from sortedcontainers.sortedset import SortedSet
+
+a = [1,2,3,3,2,1,1,2,3,4,6,9,8,8,8,6,5,5,9,8,5,4]
+
+# sl = [1,1,1,2,2,2,3,3,3,4,4,5,5,5,6,6,8,8,8,8,9,9]
+sl = SortedList(a)
+
+# list(s_range) = [4, 4, 5, 5, 5, 6, 6] 
+# 'irange' generates iterator based on values stored in the list
+s_range = list(sl.irange(4,6,(True, True)))  # (True,True) means inclusive of first and last numbers
+
+# list(s_slice) = [1,2,2,2,3,3,3,4,4,5]
+# 'islice' generates iterator based on index places in the list
+s_slice = sl.islice(2,12)
+
+# ss = [1,2,3,4,5,6,8,9]
+ss = SortedSet(a)
+
+```
+
+bisect used to break apart sorted lists
+
+```python
+from sortedcontainers.sortedlist import SortedList
+from sortedcontainers.sortedset import SortedSet
+
+a = [1,2,3,3,2,1,1,2,3,4,6,9,8,8,8,6,5,5,9,8,5,4]
+sl = SortedList(a)
+
+#     sl = [1,1,1,2,2,2,3,3,3,4,4,5,5,5,6,6,8,8,8,8,9,9]
+# indexes: [0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1] 
+
+bl_index = sl.bisect_left(4)    # 9
+br_index = sl.bisect_right(4)   # 11
+# '4' is in the list, so BL != BR
+
+bl_index = sl.bisect_left(99)   # 22
+br_index = sl.bisect_right(99)  # 22
+# 99 greater than any in the list, so BR == len(sl) and BL = len(sl)
+
+bl_index = sl.bisect_left(0)   # 0
+br_index = sl.bisect_right(0)  # 0
+# 0 less than any in the list, so BR == 0 and BL = 0
+
+bl_index = sl.bisect_left(7)   # 16
+br_index = sl.bisect_right(7)  # 16
+# 7 not in list, but list has both higher and lower values
+# BL == BR. Both point to first value higher than 7
+
+bl_index = sl.bisect_left(1)   # 0
+br_index = sl.bisect_right(1)  # 3
+# 1 is first in list. List contains value so BL != BR
+# BL points to first occurence of value, BR points to index past last occurrance
+# also, BR - BL = (number of '1's present in the sorted list)
 
 ```
