@@ -86,12 +86,28 @@ for i, v in enumerate(string_val):
 
 ```
 
-extract a string from a larger strgin given indexes into the string
+# misc string operations
 
 ```python
+# extract a string from a larger strgin given indexes into the string
 s = 'hello'
 s[0:4]  # 'hell'
 #  s[i:j] -> i = beginning/inclusive, j = end/exclusive
+
+# split a sentence into a list of words
+text = "I am a sentence"
+words = text.split() # words = ["I", "am", "a", "sentence"]
+
+# count of occurrances of a letter
+spaces = text.count(' ')  # 3 spaces
+
+# create a senence from an array of words
+new_sentence = (" ").join(words) 
+
+# create a new string initialized with a number of specific chars
+
+a_hundred_spaces = " " * 100
+
 ```
 
 To reverse a list or a string
@@ -294,23 +310,23 @@ from sortedcontainers.sortedset import SortedSet
 
 a = [1,2,3,3,2,1,1,2,3,4,6,9,8,8,8,6,5,5,9,8,5,4]
 
-# sl = [1,1,1,2,2,2,3,3,3,4,4,5,5,5,6,6,8,8,8,8,9,9]
 sl = SortedList(a)
+# sl = [1,1,1,2,2,2,3,3,3,4,4,5,5,5,6,6,8,8,8,8,9,9]
 
-# list(s_range) = [4, 4, 5, 5, 5, 6, 6] 
 # 'irange' generates iterator based on values stored in the list
 s_range = list(sl.irange(4,6,(True, True)))  # (True,True) means inclusive of first and last numbers
+# list(s_range) = [4, 4, 5, 5, 5, 6, 6] 
 
-# list(s_slice) = [1,2,2,2,3,3,3,4,4,5]
 # 'islice' generates iterator based on index places in the list
 s_slice = sl.islice(2,12)
+# list(s_slice) = [1,2,2,2,3,3,3,4,4,5]
 
-# ss = [1,2,3,4,5,6,8,9]
 ss = SortedSet(a)
+# ss = [1,2,3,4,5,6,8,9]
 
 ```
 
-bisect used to break apart sorted lists
+bisect used to break apart sorted lists == binary search for O(log(n))? speed for search. 
 
 ```python
 from sortedcontainers.sortedlist import SortedList
