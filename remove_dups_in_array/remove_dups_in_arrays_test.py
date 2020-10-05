@@ -21,7 +21,7 @@ class RemoveDupsInArraysTest(unittest.TestCase):
             expected = test[1]
 
             print("vals = " + str(vals) + " expected_list = " + str(expected))
-            actual = s.maxDistance(vals)
+            actual = s.removeDuplicates(vals)
             self.assertEqual(expected, actual)
             print("vals = " + str(vals) + " expected_list = " + str(expected) + " actual = " + str(actual))
 
