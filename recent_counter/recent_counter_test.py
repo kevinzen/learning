@@ -28,4 +28,34 @@ class RecentCounterTest(unittest.TestCase):
                 print("Deque:       ping = " + str(pings[i]) + " count_deque = " + str(count_deque) + " expected cpount = " + str(counts[i]))
                 self.assertTrue(counts[i], count)
 
+    def test_max_integer(self):
+
+        def solution(numbers: [int]) -> int:
+            length = len(numbers)
+            if length == 0:
+                return 0
+
+            result = numbers[0]
+            for i in range(1, length):
+                if numbers[i] > result:
+                    result = numbers[i]
+
+            return result
+
+        r = solution([0,1,1,1,4,5,6,-1])
+        self.assertEqual(6,r)
+
+        r = solution([-100,1,1,1,4,5,6,100])
+        self.assertEqual(100,r)
+
+        r = solution([])
+        self.assertEqual(0,r)
+
+        r = solution([-1, -1, -3, -5, -2])
+        self.assertEqual(-1,r)
+
+        r = solution([0,1,1,999,4,5,6,-1])
+        self.assertEqual(999,r)
+
+
 
