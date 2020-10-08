@@ -362,3 +362,38 @@ br_index = sl.bisect_right(1)  # 3
 # also, BR - BL = (number of '1's present in the sorted list)
 
 ```
+
+Use lambdas as Anonymous Functions limited to one line
+
+```python
+a = ['cat','dog','bird']
+for i in a:
+    print(i) 
+
+# prints:
+# 'cat'
+# 'dog'
+# 'bird'
+
+# use lambda to order indexes in order of the original List
+b = [9, 22, 1, 4, 44]
+l = len(b)
+
+# c = list of indexes to elements in b sorted in ascending order b[i]
+c = sorted(range(l), key=lambda i: b[i])
+# c == [2, 3, 0, 1, 4]
+
+# now we can print b in sorted, ascending order
+for i in c:
+    print(b[i]) 
+
+d = c.copy()
+# use lamdas to specify sort order for List elements
+d.sort(key = lambda i: -b[i])
+# d == [4, 1, 0, 3, 2]
+
+# and we can print d in sorted, descending order
+for i in d:
+    print(b[i]) 
+
+```
