@@ -89,7 +89,7 @@ class Codec:
                 nodes[parent_node_index].right = nodes[node_index]
 
             build_tree(node_index, 2*node_index+1, LEFT)
-            build_tree(node_index, 2*node_index+1, RIGHT)
+            build_tree(node_index, 2*node_index+2, RIGHT)
 
         # first, capture the tree head
         head_val = int(node_vals[0])
