@@ -397,3 +397,57 @@ for i in d:
     print(b[i]) 
 
 ```
+
+Generating lists using list comprehension and generators
+
+```python
+
+l = [x for x in range(10)]
+# l == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+l = [x ** 2 for x in range(10) if x % 2 == 0]
+# l == [0, 4, 16, 36, 64]
+
+# initialize an array of treenode values:
+node_vals = [2,1,3]
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+# Create a list of trees
+forest = [TreeNode(x) for x in node_vals]
+
+```
+
+Build binary tree breadth first from an array of vals
+
+```python
+
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+def build_tree_breadth_first(self, node_vals: []):
+
+    # Create a list of trees
+    forest = [TreeNode(x) for x in node_vals]
+
+    # Fix up the left- and right links
+    count = len(forest)
+    for i in range(count):
+        left_index  = 2 * i + 1
+        right_index = 2 * i + 2
+
+        if left_index < count:
+            forest[i].left = forest[left_index]
+        if right_index < count:
+            forest[i].right = forest[right_index]
+
+    return forest[0]  # root
+
+```

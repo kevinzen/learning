@@ -16,7 +16,7 @@ class BinarySearchTree(object):
 
         x, y = self.root, None
 
-        if not x: # no root new_node, make this new_node the root new_node and return
+        if not x: # no node new_node, make this new_node the node new_node and return
             self.root = new_node
             return new_node
 
