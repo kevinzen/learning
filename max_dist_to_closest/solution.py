@@ -13,6 +13,7 @@
 
 
 from collections import deque
+
 class Solution:
 
     def max_distance_to_closes(self, seats: []) -> int:
@@ -28,13 +29,12 @@ class Solution:
             if not seats.popleft():
                 empty_seats.append(i)
             else:
-                empty_this_set = len(empty_seats)
-                if empty_this_set != 0:
-
+                if empty_seats:
+                    num_empty_seats = len(empty_seats)
                     if empty_seats.count(first_seat):
-                        max_dist_this_set = empty_this_set
+                        max_dist_this_set = num_empty_seats
                     else:
-                        max_dist_this_set = empty_this_set // 2 + empty_this_set % 2
+                        max_dist_this_set = num_empty_seats // 2 + num_empty_seats % 2
 
                     if max_dist_this_set > max_dist:
                         max_dist = max_dist_this_set

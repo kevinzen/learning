@@ -421,7 +421,8 @@ forest = [TreeNode(x) for x in node_vals]
 
 ```
 
-Build binary tree breadth first from an array of vals
+Build binary tree breadth first from an array of vals. 
+Should be usable for any binary tree with only left and right subnodes
 
 ```python
 
@@ -431,23 +432,75 @@ class TreeNode:
         self.left = None
         self.right = None
 
+class TreeBuilder:
+    def build_tree_breadth_first(self, node_vals: []):
 
-def build_tree_breadth_first(self, node_vals: []):
+        if len(node_vals) == 0:
+            return []
 
-    # Create a list of trees
-    forest = [TreeNode(x) for x in node_vals]
+        count = len(node_vals)
+        nodes = {}
 
-    # Fix up the left- and right links
-    count = len(forest)
-    for i in range(count):
-        left_index  = 2 * i + 1
-        right_index = 2 * i + 2
+        RIGHT = 1
+        LEFT = 2
+        def build_tree(parent_node_index, node_index, r_or_l):
 
-        if left_index < count:
-            forest[i].left = forest[left_index]
-        if right_index < count:
-            forest[i].right = forest[right_index]
+            if node_index >= count or node_vals[node_index] is None:
+                return
 
-    return forest[0]  # root
+            node_val = int(node_vals[node_index])
+            nodes[node_index] = TreeNode(node_val)
+
+            if r_or_l == LEFT:
+                nodes[parent_node_index].left = nodes[node_index]
+            else:
+                nodes[parent_node_index].right = nodes[node_index]
+
+            build_tree(node_index, 2*node_index+1, LEFT)
+            build_tree(node_index, 2*node_index+2, RIGHT)
+
+        # first, capture the tree head
+        head_val = int(node_vals[0])
+        nodes[0] = TreeNode(head_val)
+        build_tree(0,1,LEFT)
+        build_tree(0,2,RIGHT)
+
+        return nodes[0]
 
 ```
+
+Use `re.sub` instead of `str.replace` if you need regular expression matching
+
+```python
+import re
+path = '/a/b/c/d/../.'
+path = re.sub('/\.$', '', path)   # in case it's at the end
+
+# path should now be: '/a/b/c/d/../d/e/' -> strip trailing '/' if there
+path = re.sub('/$', '', path)   # in case it's at the end
+
+```
+
+To write a pytest test case
+
+```python
+import unittest
+class SolutionTest(unittest.TestCase):
+    def test_solution(self):
+        pass
+```
+
+Sorting algorithm complexities
+
+
+
+| algorithm |  BEST	|AVERAGE|WORST|
+|-----------|-------|-------|-------|
+| Selection Sort | Ω(n^2) | θ(n^2) | O(n^2) | 	 
+| Bubble Sort | Ω(n) | θ(n^2) | O(n^2) | 	 
+| Insertion Sort | Ω(n) | θ(n^2) | O(n^2)	  | 
+| Heap Sort | Ω(n log(n)) | θ(n log(n)) | O(n log(n))	 |  
+| Quick Sort | Ω(n log(n)) | θ(n log(n)) | O(n^2)	  | 
+| Merge Sort | Ω(n log(n)) | θ(n log(n)) | O(n log(n))	 |  
+| Bucket Sort | Ω(n+k) | θ(n+k) | O(n^2)	  | 
+| Radix Sort | Ω(nk) | θ(nk) | O(nk)	  | 
